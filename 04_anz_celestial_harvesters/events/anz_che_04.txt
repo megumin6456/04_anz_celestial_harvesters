@@ -1,0 +1,763 @@
+namespace = anz_che_04
+
+planet_event = { # Alpha
+	id = anz_che_04.01
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		from = {
+			owner = {
+				add_victory_score = {
+					source = destroyed_stars_score
+					score = 100
+				}
+				add_resource = {
+					energy = 50000
+					minerals = 50000
+
+					alloys = 25000
+
+					sr_dark_matter = 7500
+					acot_sr_dark_energy = 7500			
+				}
+			}
+		}
+		planet_event = { id = anz_che_04.06 days = 0 }
+	}
+}
+
+planet_event = { # Sigma
+	id = anz_che_04.02
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		from = {
+			owner = {
+				add_victory_score = {
+					source = destroyed_stars_score
+					score = 100
+				}
+				add_resource = {
+					energy = 50000
+					minerals = 50000
+
+					alloys = 25000
+
+					sr_dark_matter = 5000
+					acot_sr_dark_energy = 5000
+					acot_sr_stellarite = 10000
+				}
+			}
+		}
+		planet_event = { id = anz_che_04.06 days = 0 }
+	}
+}
+
+planet_event = { # Blokkat copykat (Still had to re-code most of it)
+	id = anz_che_04.03
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+
+		add_threat = { who = from.owner amount = 100 }
+		# Give Supply
+		from = {
+			owner = {
+				add_victory_score = {
+					source = destroyed_stars_score
+					score = 100
+				}
+				add_resource = {
+					energy = 100000
+					minerals = 100000
+					food = 100000
+
+					alloys = 100000
+					consumer_goods = 100000
+
+					sr_dark_matter = 20000
+					acot_sr_dark_energy = 20000
+					acot_sr_stellarite = 15000
+
+					volatile_motes = 10000
+					exotic_gases = 10000
+					rare_crystals = 10000
+
+					sr_stellar_plasma = 5000
+					# now stop bugging me Quollveth
+
+					# sr_iodizium = 5000
+					# ehof_sr_sentient_metal = 5000
+
+					sr_solar_energy = 1000
+					sr_magical_neutronium = 1000
+					# sr_psionic_sublimate = 1000
+
+					# sr_living_metal = 1000
+					# sr_zro = 1000
+					# nanites = 1000
+					# minor_artifacts = 1000
+
+					# Hi Oriana! Are you reading this again?
+					# This is your 7th time ^^
+				}
+				if = {
+					limit = {
+						NOT = { has_country_flag = cracked_first_star }
+					}
+					set_country_flag = cracked_first_star
+				}
+			}
+		}
+
+		solar_system = {
+			# Handle Crisis Worlds
+			if = {
+				limit = {
+					OR = {
+						any_system_planet = { is_planet_class = pc_infested }
+						any_system_planet = { is_planet_class = pc_ai }
+					}
+				}
+				every_system_planet = {
+					limit = {
+						OR = { 
+							has_planet_flag = machine_world_1
+							has_planet_flag = machine_world_2
+							has_planet_flag = machine_world_3
+							has_planet_flag = machine_world_4
+						}
+					}
+					planet_event = { id = giga_qso.111 }
+				}
+				every_system_planet = {
+					limit = { has_planet_flag = machine_lair }
+					planet_event = { id = giga_qso.113 }
+				}
+				every_system_planet = {
+					limit = { is_planet_class = pc_infested }
+					planet_event = { id = giga_qso.115 } # Infested world
+				}
+			}
+
+			# Flags
+			set_star_class = sc_blokkat_stripmined
+			remove_star_flag = blokkat_system_being_stripmined
+			set_star_flag = blokkat_stripmined_system
+
+			every_system_planet = {
+				if = {
+					limit = { has_planet_flag = megastructure }
+					remove_planet_flag = megastructure
+				}
+				if = {
+					limit = { has_planet_flag = has_megastructure }
+					remove_planet_flag = has_megastructure
+				}
+			}
+
+			# Rename System
+			if = {
+				limit = { NOT = { has_star_flag = blokkat_system_name_set_to_void } }
+				set_star_flag = blokkat_system_name_set_to_void
+				set_name = {
+					key = "NAME_Giga_Void_System"
+					variable_string = "[PREV.GetName]"
+				}
+			}
+
+			# Kill Random stuff
+			set_asteroid_belt = { radius = 0 }
+			every_system_ambient_object = {
+				destroy_ambient_object = THIS
+			}
+
+			# Star Collapse
+			create_ambient_object = {
+				type = blokkat_star_collapse
+				location = PREV
+				entity_offset_height = 0
+				effect = {
+					set_ambient_object_flag = blokkat_star_collapse
+				}
+			}
+
+			# Star Change
+			every_system_planet = {
+				limit = {
+					is_star = yes
+				}
+
+				change_pc = pc_giga_empty_space
+				add_modifier = {
+					modifier = blokkat_can_repair_system
+					days = -1
+				}
+				planet_event = { id = anz_che_04.04 days = 13 }
+			}
+
+			# Megas
+			every_system_megastructure = {
+				limit = {
+					NOT = { mega_blokkats_wont_stripmine = yes }
+				}
+				remove_megastructure = this
+			}
+
+			# Kill colony
+			every_system_planet = {
+				if = { limit = { is_colony = yes } destroy_colony = yes }
+			}
+
+			# Kill fleets
+			every_fleet_in_system = {
+				limit = {
+					anz_immune_to_star_eaters = no
+				}
+				destroy_fleet = this
+			}
+
+			random_ship_in_system = {
+				limit = {
+					OR = {
+						is_ship_size = star_eater
+						is_ship_size = giga_systemcraft
+						is_ship_size = precursor_colossus
+					}
+				}
+				add_modifier = {
+					modifier = blokkat_stripminer_speed_debuff
+					days = -1
+				}
+			}
+		}
+	}
+}
+
+planet_event = { # Finish off system after delay
+	id = anz_che_04.04
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		solar_system = {
+			every_system_ambient_object = {
+				destroy_ambient_object = THIS
+			}
+
+			every_system_planet = {
+				limit = {
+					is_star = no
+				}
+				if = { limit = { is_colony = yes } destroy_colony = yes }
+				remove_planet = yes
+			}
+
+			# Kill excluded stuff
+			every_system_megastructure = {
+				remove_megastructure = this
+			}
+
+			# Kill fleets
+			every_fleet_in_system = {
+				limit = {
+					anz_immune_to_star_eaters = no
+				}
+				destroy_fleet = this
+			}
+
+			every_ship_in_system = {
+				limit = { has_modifier = blokkat_stripminer_speed_debuff }
+				remove_modifier = blokkat_stripminer_speed_debuff
+			}
+		}
+		planet_event = {
+			id = anz_che_04.05
+			days = 60
+		}
+	}
+}
+
+planet_event = { # Disconnect Hyperlanes after a while
+	id = anz_che_04.05
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		solar_system = {
+			# Disconnect Hyperlanes
+			every_neighbor_system = {
+				remove_hyperlane = {
+					from = prev
+					to = this
+				}
+			}
+			every_fleet_in_system = {
+				limit = {
+					anz_immune_to_star_eaters = no
+				}
+				destroy_fleet = this
+			}
+			# Erase
+			every_system_planet = {
+				if = { limit = { is_colony = yes } destroy_colony = yes }
+				remove_planet = yes
+			}
+		}
+	}
+}
+
+# Crack Star Event
+planet_event = {
+	id = anz_che_04.06
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	immediate = {
+		add_threat = { who = from.owner amount = 10 }
+		from = {
+			owner = {
+				save_event_target_as = crisis_country
+				add_victory_score = {
+					source = destroyed_stars_score
+					score = 10
+				}
+				switch = {
+					trigger = galaxy_size
+					huge = { add_resource = { sr_dark_matter = 1000 } }
+					large = { add_resource = { sr_dark_matter = 1500 } }
+					medium = { add_resource = { sr_dark_matter = 2000 } }
+					small = { add_resource = { sr_dark_matter = 2500 } }
+					tiny = { add_resource = { sr_dark_matter = 3000 } }
+				}
+				if = {
+					limit = {
+						NOT = { has_country_flag = cracked_first_star }
+					}
+					set_country_flag = cracked_first_star
+				}
+			}
+		}
+		solar_system = { save_event_target_as = destroyed_system }
+		every_playable_country = {
+			limit = {
+				is_ai = no
+				has_communications = event_target:crisis_country
+				NOR = {
+					is_same_value = event_target:crisis_country
+					has_country_flag = can_build_star_eaters
+					has_country_flag = star_eater_alert@event_target:crisis_country
+				}
+				intel_level = {
+					system = event_target:destroyed_system
+					level = none
+				}
+			}
+			country_event = { id = crisis.6180 }
+		}
+		every_playable_country = {
+			limit = {
+				is_ai = no
+				has_communications = event_target:crisis_country
+				NOR = {
+					is_same_value = event_target:crisis_country
+					has_country_flag = can_build_star_eaters
+					has_country_flag = star_eater_alert@event_target:crisis_country
+				}
+				intel_level = {
+					system = event_target:destroyed_system
+					level > none
+				}
+			}
+			country_event = { id = crisis.6181 }
+		}
+		every_playable_country = {
+			limit = {
+				is_ai = no
+				has_communications = event_target:crisis_country
+				NOR = {
+					is_same_value = event_target:crisis_country
+					has_country_flag = star_eater_alert@event_target:crisis_country
+				}
+				has_country_flag = can_build_star_eaters
+			}
+			country_event = { id = crisis.6182 }
+		}
+		every_playable_country = {
+			limit = {
+				has_communications = event_target:crisis_country
+				NOT = {
+					has_opinion_modifier = {
+						who = event_target:crisis_country
+						modifier = opinion_destroying_systems
+					}
+				}
+			}
+			add_opinion_modifier = {
+				who = event_target:crisis_country
+				modifier = opinion_destroying_systems
+			}
+		}
+		solar_system = {
+			if = {
+				limit = { exists = event_target:crisis_country }
+				fire_on_action = {
+					on_action = on_destroy_star_system
+					scopes = { from = event_target:crisis_country }
+				}
+			}
+			else = {
+				fire_on_action = { on_action = on_destroy_star_system }
+			}
+			set_star_flag = star_cracked
+			set_star_class = sc_black_hole
+			every_system_ambient_object = {
+				limit = {
+					# Preserve Unbidden crisis effects
+					NOR = {
+						has_ambient_object_flag = extradimensional_system_effect
+						has_ambient_object_flag = extradimensional_system_effect_2
+					}
+				}
+				destroy_ambient_object = this
+			}
+			every_system_planet = {
+				limit = { is_star = yes }
+				create_ambient_object = {
+					type = "star_explosion"
+					play_animation_once = yes
+					location = this
+				}
+				last_created_ambient_object = {
+					set_location = {
+						target = prev
+						distance = 0
+						angle = random
+					}
+				}
+				change_pc = pc_black_hole
+			}
+			# Handle Contingency Machine Worlds
+			every_system_planet = {
+				limit = {
+					is_planet_class = pc_ai
+					NOT = { has_planet_flag = machine_lair }
+				}
+				destroy_machine_world = yes
+			}
+			random_system_planet = {
+				limit = {
+					is_planet_class = pc_ai
+					has_planet_flag = machine_lair
+				}
+				from.owner = { save_event_target_as = final_machine_world_destroyer }
+				stop_crisis_sound = yes
+				planet_event = { id = crisis.2046 }
+			}
+			every_system_planet = {
+				limit = {
+					is_star = no
+					is_asteroid = no
+					NOR = {
+						is_planet_class = pc_shattered
+						is_planet_class = pc_shattered_2
+						is_planet_class = pc_shielded
+						is_planet_class = pc_ringworld_habitable_damaged
+						is_planet_class = pc_ringworld_tech_damaged
+						is_planet_class = pc_ringworld_seam_damaged
+					}
+				}
+				if = {
+					limit = { is_planet_class = pc_habitat } # uncolonized
+					spawn_habitat_cracker_effect = yes
+					if = { limit = { is_colony = yes } destroy_colony = yes }
+					remove_planet = yes
+				}
+				if = {
+					limit = { is_colony = yes }
+					remove_all_buildings = yes
+					destroy_colony = yes
+					if = {
+						limit = { is_planet_class = pc_habitat }
+						spawn_habitat_cracker_effect = yes
+						if = { limit = { is_colony = yes } destroy_colony = yes }
+						remove_planet = yes
+					}
+					else_if = {
+						limit = { is_planet_class = pc_ringworld_habitable }
+						spawn_ringworld_cracker_effect = yes
+						change_pc = pc_ringworld_habitable_damaged
+					}
+					else = {
+						change_pc = pc_shattered
+					}
+				}
+				else_if = {
+					limit = { is_planet_class = pc_ringworld_habitable }
+					spawn_ringworld_cracker_effect = yes
+					change_pc = pc_ringworld_habitable_damaged
+				}
+				else_if = {
+					limit = { is_planet_class = pc_ringworld_tech }
+					spawn_ringworld_cracker_effect = yes
+					change_pc = pc_ringworld_tech_damaged
+				}
+				else_if = {
+					limit = { is_planet_class = pc_ringworld_seam }
+					spawn_ringworld_cracker_effect = yes
+					change_pc = pc_ringworld_seam_damaged
+				}
+				else = {
+					change_pc = pc_shattered
+				}
+			}
+			every_system_planet = {
+				limit = {
+					exists = orbital_station
+				}
+				orbital_station = { dismantle = yes }
+			}
+			every_system_planet = {
+				clear_deposits = yes
+				clear_planet_modifiers = yes
+				prevent_anomaly = yes
+			}
+			every_system_planet = {
+				limit = { is_asteroid = yes }
+				clear_deposits = yes
+			}
+			every_fleet_in_system = {
+				limit = {
+					NOR = {
+						OR = {
+							is_ship_size = star_eater
+							is_ship_size = giga_systemcraft
+							is_ship_size = precursor_colossus
+						}
+						# except Extradimensionals
+						AND = {
+							exists = owner
+							owner = {
+								OR = {
+									is_country_type = portal_holder
+									is_country_type = extradimensional
+									is_country_type = extradimensional_2
+									is_country_type = extradimensional_3
+								}
+							}
+						}
+					}
+				}
+				if = {
+					limit = {
+						exists = event_target:crisis_country #i.e. not final destruction of all matter
+						is_mobile = yes
+					}
+					set_mia = yes
+				}
+				else = {
+					destroy_fleet = this
+				}
+			}
+			every_system_megastructure = {
+				if = {
+					limit = {
+						OR = {
+							is_megastructure_type = ring_world_restored
+							is_megastructure_type = ring_world_ruined
+							is_megastructure_type = ring_world_2
+						}
+					}
+					solar_system = {
+						spawn_planet = {
+							class = "pc_ringworld_tech_damaged"
+							location = prev
+							orbit_angle_offset = 30
+						}
+						spawn_planet = {
+							class = "pc_ringworld_seam_damaged"
+							location = prev
+						}
+						spawn_planet = {
+							class = "pc_ringworld_habitable_damaged"
+							location = prev
+							orbit_angle_offset = -30
+						}
+					}
+					remove_megastructure = this
+				}
+				else_if = {
+					limit = {
+						OR = {
+							is_megastructure_type = spy_orb_1
+							is_megastructure_type = spy_orb_2
+							is_megastructure_type = spy_orb_3
+							is_megastructure_type = spy_orb_4
+							is_megastructure_type = spy_orb_ruined
+							is_megastructure_type = spy_orb_restored
+						}
+					}
+					solar_system = {
+						spawn_megastructure = {
+							type = "spy_orb_permanently_ruined"
+							coords_from = prev
+						}
+					}
+					remove_megastructure = this
+				}
+				else_if = {
+					limit = {
+						OR = {
+							is_megastructure_type = think_tank_1
+							is_megastructure_type = think_tank_2
+							is_megastructure_type = think_tank_3
+							is_megastructure_type = think_tank_4
+							is_megastructure_type = think_tank_ruined
+							is_megastructure_type = think_tank_restored
+						}
+					}
+					solar_system = {
+						spawn_megastructure = {
+							type = "think_tank_permanently_ruined"
+							coords_from = prev
+						}
+					}
+					remove_megastructure = this
+				}
+				else_if = {
+					limit = {
+						OR = {
+							is_megastructure_type = strategic_coordination_center_1
+							is_megastructure_type = strategic_coordination_center_2
+							is_megastructure_type = strategic_coordination_center_3
+							is_megastructure_type = strategic_coordination_center_ruined
+							is_megastructure_type = strategic_coordination_center_restored
+						}
+					}
+					solar_system = {
+						spawn_megastructure = {
+							type = "strategic_coordination_center_permanently_ruined"
+							coords_from = prev
+						}
+					}
+					remove_megastructure = this
+				}
+				else_if = {
+					limit = {
+						OR = {
+							is_megastructure_type = mega_art_installation_1
+							is_megastructure_type = mega_art_installation_2
+							is_megastructure_type = mega_art_installation_3
+							is_megastructure_type = mega_art_installation_4
+							is_megastructure_type = mega_art_installation_ruined
+							is_megastructure_type = mega_art_installation_restored
+						}
+					}
+					solar_system = {
+						spawn_megastructure = {
+							type = "mega_art_installation_permanently_ruined"
+							coords_from = prev
+						}
+					}
+					remove_megastructure = this
+				}
+				else_if = {
+					limit = {
+						OR = {
+							is_megastructure_type = interstellar_assembly_1
+							is_megastructure_type = interstellar_assembly_2
+							is_megastructure_type = interstellar_assembly_3
+							is_megastructure_type = interstellar_assembly_4
+							is_megastructure_type = interstellar_assembly_ruined
+							is_megastructure_type = interstellar_assembly_restored
+						}
+					}
+					solar_system = {
+						spawn_megastructure = {
+							type = "interstellar_assembly_permanently_ruined"
+							coords_from = prev
+						}
+					}
+					remove_megastructure = this
+				}
+				else_if = {
+					limit = {
+						OR = {
+							is_megastructure_type = mega_shipyard_1
+							is_megastructure_type = mega_shipyard_2
+							is_megastructure_type = mega_shipyard_3
+							is_megastructure_type = mega_shipyard_ruined
+							is_megastructure_type = mega_shipyard_restored
+						}
+					}
+					solar_system = {
+						spawn_megastructure = {
+							type = "mega_shipyard_permanently_ruined"
+							coords_from = prev
+						}
+					}
+					remove_megastructure = this
+				}
+				else_if = {
+					limit = {
+						OR = {
+							is_megastructure_type = matter_decompressor_1
+							is_megastructure_type = matter_decompressor_2
+							is_megastructure_type = matter_decompressor_3
+							is_megastructure_type = matter_decompressor_4
+							is_megastructure_type = matter_decompressor_ruined
+							is_megastructure_type = matter_decompressor_restored
+						}
+					}
+					solar_system = {
+						spawn_megastructure = {
+							type = "matter_decompressor_permanently_ruined"
+							coords_from = prev
+						}
+					}
+					remove_megastructure = this
+				}
+				else_if = {
+					limit = { is_crisis_sphere = yes }
+					solar_system = {
+						spawn_megastructure = {
+							type = crisis_sphere_ruined
+							coords_from = prev
+							init_effect = {
+								random_country = {
+									limit = {
+										prevprev = { has_megastructure_flag = crisis_sphere_of@prev }
+									}
+									save_event_target_as = former_owner
+								}
+								set_megastructure_flag = crisis_sphere_of@event_target:former_owner
+							}
+						}
+					}
+					remove_megastructure = this
+				}
+				else = {
+					remove_megastructure = this
+				}
+			}
+			star = {
+				create_ambient_object = {
+					type = "destroyed_system"
+					location = this
+				}
+				last_created_ambient_object = {
+					set_ambient_object_flag = destroyed_system_effect
+					set_location = {
+						target = prev
+						distance = 0
+						angle = random
+					}
+				}
+			}
+		}
+	}
+}

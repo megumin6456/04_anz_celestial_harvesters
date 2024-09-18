@@ -1,0 +1,34 @@
+﻿l_english:
+
+PLANET_KILLER_AE_EATER: "Alpha Star Eater"
+PLANET_KILLER_SE_EATER: "Sigma Star Eater"
+PLANET_KILLER_CE_EATER: "Celestial Harvester"
+
+PLANET_KILLER_AE_EATER_ACTION: "§BHarvest Star§!"
+PLANET_KILLER_SE_EATER_ACTION: "§HConsume Star§!"
+PLANET_KILLER_CE_EATER_ACTION: "§GStripmine System§!"
+
+PLANET_KILLER_AE_EATER_DESC: "Powerful beam of £acot_sr_dark_energy£§BDark Energy§! fired into the star, causing a supernova. All matter ejected during the event will be harvested.\n"
+PLANET_KILLER_SE_EATER_DESC: "Consume the entire star and use it's supernova to create £acot_sr_stellarite£§HStellarite§!. Ejected energy will destroy the system.\n"
+PLANET_KILLER_CE_EATER_DESC: "By replicating methods used by the Blokkats, we will §RHarvest the Galaxy!§!\n"
+
+FLEETORDER_DESTROY_PLANET_WITH_PLANET_KILLER_AE_EATER: "Preparing to Harvest $PLANET|Y$"
+FLEETORDER_DESTROY_PLANET_WITH_PLANET_KILLER_SE_EATER: "Preparing to Consume $PLANET|Y$"
+FLEETORDER_DESTROY_PLANET_WITH_PLANET_KILLER_CE_EATER: "Preparing to Stripmine $PLANET|Y$"
+
+MESSAGE_DESC_FOR_PLANET_KILLER_AE_EATER: "harvested by"
+MESSAGE_DESC_FOR_PLANET_KILLER_SE_EATER: "consumed by"
+MESSAGE_DESC_FOR_PLANET_KILLER_CE_EATER: "stripmined by"
+
+tech_ae_eater: "Alpha Star Eater"
+tech_se_eater: "Sigma Star Eater"
+tech_ce_eater: "Blokkat Celestial Harvester"
+
+tech_ae_eater_desc: "Eat Stars using £acot_sr_dark_energy£§BDark Energy§! to fuel our empire\n\n§BWE ARE ALPHA, WE ARE THE FUTURE!§!"
+tech_se_eater_desc: "Devour Stars to create massive supply of £acot_sr_stellarite£§HStellarite§!\n\n§RPRAISE THE SUN!§!"
+tech_ce_eater_desc: "We watch in awe as the §GBlokkats§! harvest the Galaxy\n\n§RWE MUST JOIN THEM!§!"
+
+anz_che_invalid_target_harvested: "System is already harvested, there is nothing left!"
+anz_che_invalid_target_special: "This system contains entities that cannot be harvested directly."
+anz_che_invalid_target_not_star: "You must select the star to begin harvesting operations."
+anz_che_invalid_target_dense: "Cannot target Dense Celestial bodies."

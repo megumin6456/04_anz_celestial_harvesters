@@ -1,0 +1,18 @@
+spriteTypes = {
+
+	spriteType = {
+		name = "GFX_anz_ae_eater"
+		texturefile = "gfx/interface/icons/ship_parts/ship_part_ae_eater.dds"
+	}
+
+	spriteType = {
+		name = "GFX_anz_se_eater"
+		texturefile = "gfx/interface/icons/ship_parts/ship_part_se_eater.dds"
+	}
+
+	spriteType = {
+		name = "GFX_anz_ce_eater"
+		texturefile = "gfx/interface/icons/ship_parts/ship_part_ce_eater.dds"
+	}
+	
+}

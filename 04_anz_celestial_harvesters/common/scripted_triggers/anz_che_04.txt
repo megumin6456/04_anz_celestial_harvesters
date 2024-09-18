@@ -1,0 +1,120 @@
+can_destroy_planet_with_PLANET_KILLER_AE_EATER = {
+	anz_che_can_target_system = yes
+	# Star type
+	custom_tooltip = {
+		merg_is_dense_star = no
+		fail_text = {
+			fail_text = anz_che_invalid_target_dense
+		}
+	}
+	# Check if space owner is hostile or self
+	custom_tooltip = {
+		fail_text = star_owner_is_not_hostile
+		OR = {
+			NOT = { exists = space_owner }
+			space_owner = { is_hostile = from.owner }
+			space_owner = { is_same_value = from.owner }
+		}
+	}
+}
+
+can_destroy_planet_with_PLANET_KILLER_SE_EATER = {
+	anz_che_can_target_system = yes
+	# Star type
+	custom_tooltip = {
+		merg_is_dense_star = no
+		fail_text = {
+			fail_text = anz_che_invalid_target_dense
+		}
+	}
+	# Check if space owner is hostile or self
+	custom_tooltip = {
+		fail_text = star_owner_is_not_hostile
+		OR = {
+			NOT = { exists = space_owner }
+			space_owner = { is_hostile = from.owner }
+			space_owner = { is_same_value = from.owner }
+		}
+	}
+}
+
+can_destroy_planet_with_PLANET_KILLER_CE_EATER = {
+	anz_che_can_target_system = yes
+}
+
+anz_che_can_target_system = {
+	# Harvested System
+	custom_tooltip = {
+		# User Merger of Rules as API
+		merg_is_empty_space = no
+
+		fail_text = anz_che_invalid_target_harvested
+	}
+
+	# Invalid Target (Special System)
+	custom_tooltip = {
+		NOR = {
+			# GIGAS - Don't Attack the Core
+			is_planet_class = pc_birch
+			is_planet_class = pc_core_black_hole
+			is_planet_class = pc_core_quasar
+
+			# There are for the Compound Right? No idea here...
+			is_planet_class = pc_whc_star
+			is_planet_class = pc_wh_star
+			is_planet_class = pc_whdyson_star
+
+			# Wanna be able to kill ehof facility so check removed
+
+			# ACOT - Phanon
+			solar_system = {
+				any_system_planet = {
+					is_planet_class = pc_acot_pmc_vault
+				}
+			}
+
+			# Secrets Byond
+			solar_system = {
+				any_system_megastructure = {
+					is_megastructure_type = sofe_outer_gate
+				}
+			}
+			has_star_flag = outercluster
+		}
+		fail_text = anz_che_invalid_target_special
+	}
+
+	# Check if space owner is hostile or self
+	custom_tooltip = {
+		fail_text = star_owner_is_not_hostile
+		OR = {
+			NOT = { exists = space_owner }
+			space_owner = { is_hostile = from.owner }
+			space_owner = { is_same_value = from.owner }
+		}
+	}
+
+	# Select the star to harvest
+	custom_tooltip = {
+		is_star = yes
+		fail_text = anz_che_invalid_target_not_star
+	}
+}
+
+# These entities will not be affected by star eaters
+anz_immune_to_star_eaters = {
+	OR = {
+		is_ship_size = star_eater
+		is_ship_size = giga_systemcraft
+		is_ship_size = giga_o_systemcraft
+		is_ship_size = precursor_colossus
+		owner = {
+			OR = {
+				is_country_type = blokkat_stripminers
+				is_country_type = original_empire
+				is_country_type = original_empire_passive
+				is_country_type = original_empire_active
+			}
+		}
+	}
+}

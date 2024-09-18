@@ -1,0 +1,11 @@
+newmtl PDXmat_star_eater_01_core_g_body_g_bodyShape_SG2
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd reptilian_01_star_eater_diffuse.dds
+bump  -bm 0.1 reptilian_01_star_eater_normal.dds
+Ni 1.00
+Ks 0.00 0.00 0.00
+map_Ks reptilian_01_star_eater_specular.dds
+Ns 18.00

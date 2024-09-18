@@ -1,0 +1,86 @@
+tech_ae_eater = {
+	area = engineering
+	tier = 5
+	cost = 160000
+	is_rare = yes
+	is_reverse_engineerable = no
+	category = { voidcraft }
+	prerequisites = { "tech_dm_world_cracker" }
+	ai_update_type = military
+	weight = 99999
+
+	prereqfor_desc = {
+		hide_prereq_for_desc = component
+		custom = {
+			title = tech_ae_eater_desc
+			desc = ""
+		}
+	}
+
+	potential = {
+		has_menace_perk = menp_star_eater
+		has_country_flag = colossus_project
+	}
+	
+	ai_weight = {
+		factor = 0
+	}
+}
+
+tech_se_eater = {
+	area = physics
+	tier = 5
+	cost = 320000
+	is_rare = yes
+	is_reverse_engineerable = no
+	category = { particles }
+	prerequisites = { "tech_ae_eater" "tech_se_world_cracker" }
+	ai_update_type = military
+	weight = 99999
+
+	prereqfor_desc = {
+		hide_prereq_for_desc = component
+		custom = {
+			title = tech_se_eater_desc
+			desc = ""
+		}
+	}
+
+	potential = {
+		has_menace_perk = menp_star_eater
+		has_country_flag = colossus_project
+	}
+	
+	ai_weight = {
+		factor = 0
+	}
+}
+
+tech_ce_eater = {
+	area = physics
+	tier = 5
+	cost = 5000000
+	is_rare = yes
+	is_reverse_engineerable = no
+	category = { blokkats }
+	prerequisites = { "giga_tech_blokkat_mega_stage_1" }
+	ai_update_type = military
+	weight = 99999
+
+	prereqfor_desc = {
+		hide_prereq_for_desc = component
+		custom = {
+			title = tech_ce_eater_desc
+			desc = ""
+		}
+	}
+
+	potential = {
+		has_menace_perk = menp_star_eater
+		has_country_flag = colossus_project
+	}
+	
+	ai_weight = {
+		factor = 0
+	}
+}

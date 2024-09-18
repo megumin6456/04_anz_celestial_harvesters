@@ -1,0 +1,65 @@
+weapon_component_template = {
+	key = "PLANET_KILLER_AE_EATER"
+	size = planet_killer
+	type = planet_killer
+	entity = "invisible_turret_entity"
+	use_ship_kill_target = no
+	can_destroy_stars = yes
+
+	windup = { min = 30.0 max = 30.0 }
+	total_fire_time = 30
+
+	icon = GFX_anz_ae_eater
+	icon_frame = 1
+
+	size_restriction = { star_eater giga_systemcraft giga_o_systemcraft precursor_colossus }
+	component_set = "PLANET_KILLER_AE_EATER"
+
+	prerequisites = { "tech_ae_eater" }
+
+	planet_destruction_gfx = "star_destroyer_effect_gfx"
+}
+
+weapon_component_template = {
+	key = "PLANET_KILLER_SE_EATER"
+	size = planet_killer
+	type = planet_killer
+	entity = "invisible_turret_entity"
+	use_ship_kill_target = no
+	can_destroy_stars = yes
+
+	windup = { min = 30.0 max = 30.0 }
+	total_fire_time = 10
+
+	icon = GFX_anz_se_eater
+	icon_frame = 1
+
+	size_restriction = { star_eater giga_systemcraft giga_o_systemcraft precursor_colossus }
+	component_set = "PLANET_KILLER_SE_EATER"
+
+	prerequisites = { "tech_se_eater" }
+
+	planet_destruction_gfx = "star_destroyer_effect_gfx"
+}
+
+weapon_component_template = {
+	key = "PLANET_KILLER_CE_EATER"
+	size = planet_killer
+	type = planet_killer
+	entity = "invisible_turret_entity"
+	use_ship_kill_target = no
+	can_destroy_stars = yes
+
+	windup = { min = 40.0 max = 0.0 }
+	total_fire_time = 0
+
+	icon = GFX_anz_ce_eater
+	icon_frame = 1
+
+	size_restriction = { star_eater giga_systemcraft giga_o_systemcraft precursor_colossus }
+	component_set = "PLANET_KILLER_CE_EATER"
+
+	prerequisites = { "tech_ce_eater" }
+
+	planet_destruction_gfx = "star_destroyer_effect_gfx"
+}
